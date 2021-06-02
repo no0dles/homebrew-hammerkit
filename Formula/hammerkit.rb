@@ -15,7 +15,7 @@ class Hammerkit < Formula
   #end
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install"
     system "node_modules/.bin/tsc", "-b", "tsconfig.build.json"
     system "node_modules/.bin/pkg", ".", "-t", "node14"
     bin.install 'hammerkit'
