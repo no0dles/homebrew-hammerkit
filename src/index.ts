@@ -14,10 +14,10 @@ async function update() {
     repo: 'hammerkit',
   });
 
-  const linuxArm64 = `https://github.com/no0dles/hammerkit/releases/download/${release.data.tag_name}/hammerkit-linux-arm64`;
-  const linuxAmd64 = `https://github.com/no0dles/hammerkit/releases/download/${release.data.tag_name}/hammerkit-linux-amd64`;
   const macosArm64 = `https://github.com/no0dles/hammerkit/releases/download/${release.data.tag_name}/hammerkit-macos-arm64`;
-  const macosAmd64 = `https://github.com/no0dles/hammerkit/releases/download/${release.data.tag_name}/hammerkit-macos-amd64`;
+  const macosAmd64 = `https://github.com/no0dles/hammerkit/releases/download/${release.data.tag_name}/hammerkit-macos-x64`;
+  const linuxArm64 = `https://github.com/no0dles/hammerkit/releases/download/${release.data.tag_name}/hammerkit-linux-arm64`;
+  const linuxAmd64 = `https://github.com/no0dles/hammerkit/releases/download/${release.data.tag_name}/hammerkit-linux-x64`;
 
   const hashes = await Promise.all([
     getHash(macosArm64),
@@ -26,6 +26,7 @@ async function update() {
     getHash(linuxAmd64),
   ]);
 
+  console.log(hashes)
   const template = readFileSync('hammerkit.rb.tmpl').toString();
   const output = replaceAll(template, {
     VERSION: release.data.tag_name,
@@ -47,15 +48,22 @@ function replaceAll(str: string, mapObj: { [key: string]: string }) {
 }
 
 function getHash(url: string): Promise<string> {
-  const hash = createHash('sha256');
   return new Promise<string>((resolve, reject) => {
-    get(url, (res) => {
-      res.on('data', data => hash.update(data));
-      res.on('error', err => reject(err));
-      res.on('end', () => {
-        resolve(hash.digest('hex'));
-      });
+    const req = get(url, (res) => {
+      if(res.statusCode === 302 && res.headers.location) {
+        getHash(res.headers.location).then(resolve).catch(reject);
+      } else {
+        const hash = createHash('sha256');
+        res.on('data', data => {
+          hash.update(data)
+        });
+        res.on('end', () => {
+          resolve(hash.digest('hex'));
+        });
+      }
     });
+    req.on('error', err => reject(err));
+    req.end();
   });
 }
 
