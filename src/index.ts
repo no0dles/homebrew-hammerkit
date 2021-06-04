@@ -40,10 +40,9 @@ async function update() {
 }
 
 function replaceAll(str: string, mapObj: { [key: string]: string }) {
-  var re = new RegExp(Object.keys(mapObj).join('|'), 'gi');
-
+  var re = new RegExp(Object.keys(mapObj).map(k => `{{${k}}}`).join('|'), 'gi');
   return str.replace(re, function (matched) {
-    return mapObj[matched.toLowerCase()];
+    return mapObj[matched.substr(2,matched.length-4)];
   });
 }
 
