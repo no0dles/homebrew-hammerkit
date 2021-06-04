@@ -1,5 +1,5 @@
 class Hammerkit < Formula
-  desc "build tool with support for containerization, build caching for local development and ci"
+  desc "Build tool with support for containerization and caching"
   homepage "https://no0dles.gitbook.io/hammerkit/"
   license "MIT"
   head "https://github.com/no0dles/hammerkit"
@@ -26,16 +26,16 @@ class Hammerkit < Formula
   def install
     on_macos do
       if Hardware::CPU.arm?
-        bin.install "hammerkit-macos-arm64" => 'hammerkit'
+        bin.install "hammerkit-macos-arm64" => "hammerkit"
       else
-        bin.install "hammerkit-macos-x64" => 'hammerkit'
+        bin.install "hammerkit-macos-x64" => "hammerkit"
       end
     end
     on_linux do
       if Hardware::CPU.arm?
-        bin.install "hammerkit-linux-arm64" => 'hammerkit'
+        bin.install "hammerkit-linux-arm64" => "hammerkit"
       else
-        bin.install "hammerkit-linux-x64" => 'hammerkit'
+        bin.install "hammerkit-linux-x64" => "hammerkit"
       end
     end
   end

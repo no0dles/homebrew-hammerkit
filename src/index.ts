@@ -4,7 +4,7 @@ import {createHash} from 'crypto';
 import {get} from 'https';
 import {readFileSync, writeFileSync} from 'fs';
 
-const myToken = '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'; // getInput('myToken');
+const myToken = process.env.GITHUB_TOKEN as string;
 
 const octokit = getOctokit(myToken);
 
@@ -35,6 +35,7 @@ async function update() {
     'LINUX-AMD64-SHA256': hashes[3],
   });
 
+  console.log('write Formula/hammerkit.rb')
   writeFileSync('Formula/hammerkit.rb', output);
 }
 
@@ -58,3 +59,5 @@ function getHash(url: string): Promise<string> {
     });
   });
 }
+
+update()
