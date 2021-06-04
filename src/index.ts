@@ -26,7 +26,7 @@ async function update() {
     getHash(linuxAmd64),
   ]);
 
-  const template = readFileSync('hammerkit.tmpl.rb').toString();
+  const template = readFileSync('hammerkit.rb.tmpl').toString();
   const output = replaceAll(template, {
     VERSION: release.data.tag_name,
     'MACOS-ARM64-SHA256': hashes[0],
