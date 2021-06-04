@@ -1,36 +1,46 @@
-require "language/node"
-
 class Hammerkit < Formula
   desc "build tool with support for containerization, build caching for local development and ci"
   homepage "https://no0dles.gitbook.io/hammerkit/"
-  url "https://github.com/no0dles/hammerkit/archive/refs/tags/v1.3.14.tar.gz"
-  sha256 "07d37daeab119e6a5a1777f20262faecc9ecec567e80a4eb39e9eb7271717019"
   license "MIT"
   head "https://github.com/no0dles/hammerkit"
 
-  depends_on "node" => :build
-
-  #bottle do
-    #sha256 cellar: :any_skip_relocation, x86_64_linux: "41de917a9f9ff33c72b2bee8f75e684822d91372e635bd2977c373feae2b1ef8"
-  #end
+  on_macos do
+    if Hardware::CPU.arm?
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.3.16/hammerkit-macos-arm64"
+      sha256 "176ab64ad860e363428ce3e4b23e8207576f8a65a567761475281cda25887640"
+    else
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.3.16/hammerkit-macos-x64"
+      sha256 "8f67b80b697ce9ac28edd7b08c484149b28e8706ecf477f540caa2fc5adab2bb"
+    end
+  end
+  on_linux do
+    if Hardware::CPU.arm?
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.3.16/hammerkit-linux-arm64"
+      sha256 "91ac6fc353b6bf39d995572b700e37a20e119a87034eeb939a6f24356fbcd207"
+    else
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.3.16/hammerkit-linux-x64"
+      sha256 "91ac6fc353b6bf39d995572b700e37a20e119a87034eeb939a6f24356fbcd207"
+    end
+  end
 
   def install
-    system "npm", "install"
-    system "node_modules/.bin/tsc", "-b", "tsconfig.build.json"
-    system "node_modules/.bin/pkg", ".", "-t", "node14"
-    bin.install 'hammerkit'
+    on_macos do
+      if Hardware::CPU.arm?
+        bin.install "hammerkit-macos-arm64" => 'hammerkit'
+      else
+        bin.install "hammerkit-macos-x64" => 'hammerkit'
+      end  
+    end
+    on_linux do
+      if Hardware::CPU.arm?
+        bin.install "hammerkit-linux-arm64" => 'hammerkit'
+      else
+        bin.install "hammerkit-linux-x64" => 'hammerkit'
+      end
+    end
   end
 
   test do
-    # `test do` will create, run in and delete a temporary directory.
-    #
-    # This test will fail and we won't accept that! For Homebrew/homebrew-core
-    # this will need to be a test that verifies the functionality of the
-    # software. Run the test with `brew test hammerkit`. Options passed
-    # to `brew install` such as `--HEAD` also need to be provided to `brew test`.
-    #
-    # The installed folder is not in the path, so use the entire path to any
-    # executables being tested: `system "#{bin}/program", "do", "something"`.
-    system "false"
+    assert_match "1.3.16", shell_output("#{bin}/hammerkit -V")
   end
 end
