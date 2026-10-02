@@ -1,7 +1,8 @@
 class Hammerkit < Formula
-  desc "Build tool with support for containerization and caching"
+  desc "Containerized build tool with incremental caching"
   homepage "https://no0dles.gitbook.io/hammerkit/"
   license "MIT"
+  version_scheme 1
   head "https://github.com/no0dles/hammerkit"
 
   on_macos do
@@ -24,23 +25,12 @@ class Hammerkit < Formula
   end
 
   def install
-    on_macos do
-      if Hardware::CPU.arm?
-        bin.install "hammerkit-macos-arm64" => "hammerkit"
-      else
-        bin.install "hammerkit-macos-x64" => "hammerkit"
-      end
-    end
-    on_linux do
-      if Hardware::CPU.arm?
-        bin.install "hammerkit-linux-arm64" => "hammerkit"
-      else
-        bin.install "hammerkit-linux-x64" => "hammerkit"
-      end
-    end
+    os = OS.mac? ? "macos" : "linux"
+    arch = Hardware::CPU.arm? ? "arm64" : "x64"
+    bin.install "hammerkit-#{os}-#{arch}" => "hammerkit"
   end
 
   test do
-    assert_match "{{VERSION}}", shell_output("#{bin}/hammerkit -V")
+    assert_match version.to_s, shell_output("#{bin}/hammerkit --version")
   end
 end
