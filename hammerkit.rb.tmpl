@@ -24,20 +24,9 @@ class Hammerkit < Formula
   end
 
   def install
-    on_macos do
-      if Hardware::CPU.arm?
-        bin.install "hammerkit-macos-arm64" => "hammerkit"
-      else
-        bin.install "hammerkit-macos-x64" => "hammerkit"
-      end
-    end
-    on_linux do
-      if Hardware::CPU.arm?
-        bin.install "hammerkit-linux-arm64" => "hammerkit"
-      else
-        bin.install "hammerkit-linux-x64" => "hammerkit"
-      end
-    end
+    os = OS.mac? ? "macos" : "linux"
+    arch = Hardware::CPU.arm? ? "arm64" : "x64"
+    bin.install "hammerkit-#{os}-#{arch}" => "hammerkit"
   end
 
   test do
