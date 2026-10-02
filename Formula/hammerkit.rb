@@ -2,6 +2,7 @@ class Hammerkit < Formula
   desc "Containerized build tool with incremental caching"
   homepage "https://no0dles.gitbook.io/hammerkit/"
   license "MIT"
+  version_scheme 1
   head "https://github.com/no0dles/hammerkit"
 
   on_macos do
