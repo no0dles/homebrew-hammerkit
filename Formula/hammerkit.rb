@@ -1,25 +1,25 @@
 class Hammerkit < Formula
-  desc "Build tool with support for containerization and caching"
+  desc "Containerized build tool with incremental caching"
   homepage "https://no0dles.gitbook.io/hammerkit/"
   license "MIT"
   head "https://github.com/no0dles/hammerkit"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/no0dles/hammerkit/releases/download/v1.5.0-alpha.0/hammerkit-macos-arm64"
-      sha256 "579109597f0fff978b7e7995f521e8fe2fae7006f69ef1b85eb28fc04fefbb72"
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.7.0/hammerkit-macos-arm64"
+      sha256 "c2843818c1d9e733fa88573611c0f5e5eaaa1631bd4151a15578997e2c6ea05f"
     else
-      url "https://github.com/no0dles/hammerkit/releases/download/v1.5.0-alpha.0/hammerkit-macos-x64"
-      sha256 "9fee5b4478baa9d5c5f8610a2e5308eaf714c996293577390aeb3acdb04d2a57"
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.7.0/hammerkit-macos-x64"
+      sha256 "4ee3d9e63077867a21f958a4cd6c3c42f1ff3d89bc54fc1afad2599ebfe3ce7c"
     end
   end
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/no0dles/hammerkit/releases/download/v1.5.0-alpha.0/hammerkit-linux-arm64"
-      sha256 "cfddce9f68366c25e253d26601af7639eea7b464bc74df9d31d5f271534aa9db"
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.7.0/hammerkit-linux-arm64"
+      sha256 "5f7c0f32c83ed5b6084c1cce0f005e35a94a39871e7104e90d3ecf7933d47df9"
     else
-      url "https://github.com/no0dles/hammerkit/releases/download/v1.5.0-alpha.0/hammerkit-linux-x64"
-      sha256 "99e42f3f2f7aafdf9389e9cb7e2dd7ce361b27fd95dfa9dd3f0ac9be78bbd7e7"
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.7.0/hammerkit-linux-x64"
+      sha256 "e451017be6dc384bb9396bb8b20663a3f87ef78a6f0993c6a293a07f19fef891"
     end
   end
 
@@ -41,6 +41,6 @@ class Hammerkit < Formula
   end
 
   test do
-    assert_match "v1.5.0-alpha.0", shell_output("#{bin}/hammerkit -V")
+    assert_match version.to_s, shell_output("#{bin}/hammerkit --version")
   end
 end

@@ -1,5 +1,5 @@
 class Hammerkit < Formula
-  desc "Build tool with support for containerization and caching"
+  desc "Containerized build tool with incremental caching"
   homepage "https://no0dles.gitbook.io/hammerkit/"
   license "MIT"
   head "https://github.com/no0dles/hammerkit"
@@ -41,6 +41,6 @@ class Hammerkit < Formula
   end
 
   test do
-    assert_match "{{VERSION}}", shell_output("#{bin}/hammerkit -V")
+    assert_match version.to_s, shell_output("#{bin}/hammerkit --version")
   end
 end
