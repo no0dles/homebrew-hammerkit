@@ -7,20 +7,20 @@ class Hammerkit < Formula
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/no0dles/hammerkit/releases/download/v1.25.0/hammerkit-macos-arm64"
-      sha256 "ce3602b685a2b44ed4179bdded962585f979673ca1f5a16b0080e789623da4fc"
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.26.0/hammerkit-macos-arm64"
+      sha256 "19f9a6f9e469657a17a8922674513b6109237f6a3ff743b1a273a1f75c670700"
     else
-      url "https://github.com/no0dles/hammerkit/releases/download/v1.25.0/hammerkit-macos-x64"
-      sha256 "38c9b5087664048f6ded2fcba43b5c4da1d233000a7764f62c89d24681212326"
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.26.0/hammerkit-macos-x64"
+      sha256 "b6dd5ffdc5817e9c2d94cdbe95b3ed87e55615a29a59ab569f6f67ca3fe69a55"
     end
   end
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/no0dles/hammerkit/releases/download/v1.25.0/hammerkit-linux-arm64"
-      sha256 "e81bc9c8499a3bea6917e4dfe83c4b821cc1163ac9a1bc413f4c8c39a51c2420"
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.26.0/hammerkit-linux-arm64"
+      sha256 "1922cd5bec76fed2c6b9115f370d749af125c9cbc143fd15d571283b70e2b579"
     else
-      url "https://github.com/no0dles/hammerkit/releases/download/v1.25.0/hammerkit-linux-x64"
-      sha256 "d23f8431dd2d9829b2aacec4a243728f21e64eeaa1fb303943a3b9ea57e3ede3"
+      url "https://github.com/no0dles/hammerkit/releases/download/v1.26.0/hammerkit-linux-x64"
+      sha256 "86544eaa6a95b3ed1b17b9dd77d30df1ff664429409600d2236e90bba26c0d61"
     end
   end
 
